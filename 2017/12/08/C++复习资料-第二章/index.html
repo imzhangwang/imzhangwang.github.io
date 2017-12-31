@@ -1,0 +1,978 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1. 关键字 随便扫几眼，大概有个印象就行，不用记。  2. 标识符：记住标识符的四条构成规则 书上第22页   开始：以大写字母、小写字母或下划线开始  组成：可由大小写字母、下划线或数字0~9组成  大小写敏感：大小写字母代表不同的标识符  不能是c++的关键字   3. 认识基本">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c++复习资料 第二章">
+<meta property="og:url" content="http://yoursite.com/2017/12/08/C++复习资料-第二章/index.html">
+<meta property="og:site_name" content="ZhangWang&#39;s Blog">
+<meta property="og:description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1. 关键字 随便扫几眼，大概有个印象就行，不用记。  2. 标识符：记住标识符的四条构成规则 书上第22页   开始：以大写字母、小写字母或下划线开始  组成：可由大小写字母、下划线或数字0~9组成  大小写敏感：大小写字母代表不同的标识符  不能是c++的关键字   3. 认识基本">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://wx2.sinaimg.cn/large/0064ae3Cgy1fmakknjb0wj30c80c1mzf.jpg">
+<meta property="og:updated_time" content="2017-12-19T09:28:46.172Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="c++复习资料 第二章">
+<meta name="twitter:description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1. 关键字 随便扫几眼，大概有个印象就行，不用记。  2. 标识符：记住标识符的四条构成规则 书上第22页   开始：以大写字母、小写字母或下划线开始  组成：可由大小写字母、下划线或数字0~9组成  大小写敏感：大小写字母代表不同的标识符  不能是c++的关键字   3. 认识基本">
+<meta name="twitter:image" content="http://wx2.sinaimg.cn/large/0064ae3Cgy1fmakknjb0wj30c80c1mzf.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/08/C++复习资料-第二章/"/>
+
+
+
+
+
+  <title>c++复习资料 第二章 | ZhangWang's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">黎明前必须经历黑暗！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/C++复习资料-第二章/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.151.16.355.355.180/0064ae3Cjw8eq7y0iti6vj30hs0ckzl1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">c++复习资料 第二章</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-08T21:22:46+08:00">
+                2017-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://wx2.sinaimg.cn/large/0064ae3Cgy1fmakknjb0wj30c80c1mzf.jpg" alt=""></p>
+<blockquote>
+<p>本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7</p>
+</blockquote>
+<h2 id="1-关键字"><a href="#1-关键字" class="headerlink" title="1. 关键字"></a>1. 关键字</h2><ul>
+<li>随便扫几眼，大概有个印象就行，不用记。</li>
+</ul>
+<h2 id="2-标识符：记住标识符的四条构成规则"><a href="#2-标识符：记住标识符的四条构成规则" class="headerlink" title="2. 标识符：记住标识符的四条构成规则"></a>2. 标识符：记住标识符的四条构成规则</h2><blockquote>
+<p>书上第22页</p>
+</blockquote>
+<ol>
+<li><p><strong>开始：以大写字母、小写字母或下划线开始</strong></p>
+</li>
+<li><p><strong>组成：可由大小写字母、下划线或数字0~9组成</strong></p>
+</li>
+<li><p><strong>大小写敏感：大小写字母代表不同的标识符</strong></p>
+</li>
+<li><p><strong>不能是c++的关键字</strong></p>
+</li>
+</ol>
+<h2 id="3-认识基本数据类型"><a href="#3-认识基本数据类型" class="headerlink" title="3. 认识基本数据类型"></a>3. 认识基本数据类型</h2><blockquote>
+<p>书上第24页</p>
+</blockquote>
+<ul>
+<li>bool(布尔型)：true(真) false(假)</li>
+<li>char(字符型)：’a’或’B’</li>
+<li>int(整型)：1或23</li>
+<li>float(浮点型)：3.1(小数)</li>
+<li>double(双精度浮点型)：3.143(高精度的小数)</li>
+</ul>
+<h2 id="4-变量的声明和定义"><a href="#4-变量的声明和定义" class="headerlink" title="4. 变量的声明和定义"></a>4. 变量的声明和定义</h2><blockquote>
+<p>书上第27页</p>
+</blockquote>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><ul>
+<li>变量的声明语句形式：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">数据类型 变量名<span class="number">1</span>，变量名<span class="number">2.</span>..;</span><br><span class="line"><span class="keyword">int</span> test;       <span class="comment">//声明了一个int类型的变量</span></span><br><span class="line"><span class="keyword">int</span> num, total; <span class="comment">//声明了两个int类型的变量</span></span><br><span class="line"><span class="keyword">float</span> a, b, c;	<span class="comment">//声明了两个float类型的变量</span></span><br></pre></td></tr></table></figure>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>学会定义变量的同时赋初值的两种形式</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">b</span><span class="params">(<span class="number">4</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="5-符号常量"><a href="#5-符号常量" class="headerlink" title="5. 符号常量"></a>5. 符号常量</h2><blockquote>
+<p>书上第28页</p>
+</blockquote>
+<p><strong>符号常量在使用之前一定要首先声明</strong></p>
+<p>常量声明语句形式：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> 数据类型 常量名 = 常量值</span><br><span class="line"><span class="keyword">const</span>  <span class="keyword">float</span>   PI    =  <span class="number">3.14</span>;</span><br><span class="line"></span><br><span class="line">或</span><br><span class="line"></span><br><span class="line">数据类型 <span class="keyword">const</span> 常量名 = 常量值</span><br><span class="line"><span class="keyword">float</span>   <span class="keyword">const</span>  PI   =  <span class="number">3.14</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="6-逻辑运算符：-非-，-amp-amp-与-，-或-的使用"><a href="#6-逻辑运算符：-非-，-amp-amp-与-，-或-的使用" class="headerlink" title="6. 逻辑运算符：!(非)， &amp;&amp;(与)， ||(或) 的使用"></a>6. 逻辑运算符：!(非)， &amp;&amp;(与)， ||(或) 的使用</h2><blockquote>
+<p>书上第31页</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">!(非)： a为<span class="literal">true</span>, !a为<span class="literal">false</span>(就是取反)</span><br><span class="line">&amp;&amp;(与)：<span class="function">a &amp;&amp; <span class="title">b</span> <span class="params">(a和b都要为<span class="literal">true</span>才为<span class="literal">true</span>)</span></span></span><br><span class="line">||(或)：a || b (a和b其中一个为true就为true)</span><br></pre></td></tr></table></figure>
+<h2 id="7-三元运算符（？）的使用"><a href="#7-三元运算符（？）的使用" class="headerlink" title="7. 三元运算符（？）的使用"></a>7. 三元运算符（？）的使用</h2><ul>
+<li>表达式形式：<code>表达式1 ？ 表达式2 : 表达式3;</code></li>
+</ul>
+<p><strong>先判断表达式1是真还是假，若真执行表达式2，若假执行表达式3</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表达式<span class="number">1</span> ？ 表达式<span class="number">2</span> : 表达式<span class="number">3</span>;</span><br><span class="line">(a &gt; b) ? a : b; <span class="comment">//如果a&gt;b成立就执行a,否则执行b</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>栗子：输出两个数中的最大数（使用三元运算符合if语句实现）</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">使用三元运算符（?）</span><br><span class="line"><span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">int</span> temp = (a &gt; b)? a:b;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;temp&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">结果：<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">使用<span class="keyword">if</span>实现相同的效果：</span><br><span class="line"><span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">int</span> temp;</span><br><span class="line"><span class="keyword">if</span>(a &gt; b)&#123;</span><br><span class="line">    temp = a;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    temp = b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;temp&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">结果：<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h2 id="8-cin和cout的使用"><a href="#8-cin和cout的使用" class="headerlink" title="8. cin和cout的使用"></a>8. cin和cout的使用</h2><blockquote>
+<p>书上第37页至38页</p>
+</blockquote>
+<ul>
+<li>cout:在屏幕上输出东西</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"Hello"</span>&lt;&lt;<span class="string">"洋勒个洋"</span>；</span><br><span class="line">结果：Hello洋勒个洋</span><br></pre></td></tr></table></figure>
+<ul>
+<li>cin:接收输入</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a, b, c;</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b&gt;&gt;c; <span class="comment">//接收输入的三个数，第一个给a,第二个给b,第三个给c</span></span><br></pre></td></tr></table></figure>
+<h2 id="9-学习if和switch的使用"><a href="#9-学习if和switch的使用" class="headerlink" title="9. 学习if和switch的使用"></a>9. 学习if和switch的使用</h2><blockquote>
+<p>书上第40页至43页</p>
+</blockquote>
+<h3 id="if的使用"><a href="#if的使用" class="headerlink" title="if的使用"></a>if的使用</h3><ul>
+<li>输出两个数中最大的那个数</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">if</span>(a &gt; b)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;b;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>结果：3</code></p>
+<ul>
+<li>if的嵌套和else if的使用</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//if的嵌套                   //else if的使用</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;          #include &lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;         <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>                   <span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;                            &#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">2</span>;                   <span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;                   <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">if</span>(a != b)                   <span class="keyword">if</span>(a == b)</span><br><span class="line">        <span class="keyword">if</span>(a &gt; b)                    <span class="built_in">cout</span>&lt;&lt;<span class="string">"a等于b"</span>;	</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"a大于b"</span>;      <span class="keyword">else</span> <span class="keyword">if</span>(a &gt; b)</span><br><span class="line">        <span class="keyword">else</span>                         <span class="built_in">cout</span>&lt;&lt;<span class="string">"a大于b"</span>;	</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"a小于b"</span>;      <span class="keyword">else</span> <span class="keyword">if</span>(a &lt; b)</span><br><span class="line">    <span class="keyword">else</span>                             <span class="built_in">cout</span>&lt;&lt;<span class="string">"a小于b"</span>;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"a等于b"</span>;          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;                 &#125;					</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>结果：a小于b</code></p>
+<h3 id="switch的使用"><a href="#switch的使用" class="headerlink" title="switch的使用"></a>switch的使用</h3><ul>
+<li>switch语句执行的顺序：首先计算switch语句中表达式的值，然后在case语句中寻找相等的值，找到进入case分支中执行语句，若case语句中都找不到相等的值，那么执行default里面的值。</li>
+</ul>
+<h4 id="switch使用注意事项"><a href="#switch使用注意事项" class="headerlink" title="switch使用注意事项"></a>switch使用注意事项</h4><ol>
+<li>switch语句后面的的表达式可以是整数、字符型、枚举型。</li>
+<li>每个case的常量表达式不能相同。</li>
+<li>每个case分支可以有多条语句，但不必用{}。</li>
+<li>每个case分支最后应该加break语句，用来结束整个switch语句。</li>
+<li>当若干case分支需要执行相同的操作时，可以使多个case分支共用一组语句。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//switch注意事项第5条</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> day;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;day;</span><br><span class="line">    <span class="keyword">switch</span>(day)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"bad day!"</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"happy day!"</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"输入错误！"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：若输入的数为1~5中的任意一个则输出<code>bad day!</code>,若输入6或7则输出<code>happy day!</code>,否则输出<code>输入错误！</code></p>
+<h2 id="10-while循环，do…while循环，-for循环的使用"><a href="#10-while循环，do…while循环，-for循环的使用" class="headerlink" title="10. while循环，do…while循环， for循环的使用"></a>10. while循环，do…while循环， for循环的使用</h2><blockquote>
+<p>书上第44页至47页</p>
+</blockquote>
+<h3 id="while循环和do…while循环"><a href="#while循环和do…while循环" class="headerlink" title="while循环和do…while循环"></a>while循环和do…while循环</h3><ul>
+<li>求自然数的和</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//程序1： while循环              //程序2： do..while循环</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;             #include &lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;            <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>                      <span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;                               &#123;</span><br><span class="line">    <span class="keyword">int</span> i, sum = <span class="number">0</span>;                 <span class="keyword">int</span> i, sum = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;i;                         <span class="built_in">cin</span>&gt;&gt;i;</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= <span class="number">10</span>)&#123;                 <span class="keyword">do</span>&#123;</span><br><span class="line">        sum += i;                       sum += i;</span><br><span class="line">        i++;                            i++;</span><br><span class="line">    &#125;                               &#125;<span class="keyword">while</span>(i &lt;= <span class="number">10</span>)</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"sum="</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;        <span class="built_in">cout</span>&lt;&lt;<span class="string">"sum="</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;                       <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;                               &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>输入10<ul>
+<li>程序一、程序二结果都为<code>sum=55</code></li>
+</ul>
+</li>
+<li>输入12：<ul>
+<li>程序一结果：<code>sum=0</code></li>
+<li>程序二结果：<code>sum=12</code></li>
+</ul>
+</li>
+</ul>
+<p><strong><em>解释：while循环是先判断再执行，do…while循环是先执行一次，才判断的。</em></strong></p>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><p>for语句语法形式：<code>for(初始语句； 表达式1； 表达式2)</code></p>
+<h4 id="for语句注意事项"><a href="#for语句注意事项" class="headerlink" title="for语句注意事项"></a>for语句注意事项</h4><ol>
+<li>初始化语句、表达式1、表达式2都可省略，但<strong><em>分号不能省略</em></strong>。<br><code>for(;;)语句 //相当于while(true)语句， 死循环</code></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">程序段<span class="number">1</span>:</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">1</span>; i &lt;= <span class="number">100</span>; i++) <span class="comment">//在初始语句中给循环控制变量赋初值</span></span><br><span class="line">       sum = sum + i;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">程序段<span class="number">2</span>：</span><br><span class="line">i = <span class="number">1</span>;               <span class="comment">//在初始语句中给循环控制变量赋初值</span></span><br><span class="line"><span class="keyword">for</span>(; i &lt;= <span class="number">100</span>; i++) <span class="comment">//省略初始化语句</span></span><br><span class="line">       sum = sum + i;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">程序段<span class="number">3</span>：</span><br><span class="line">i = <span class="number">3</span>;                      <span class="comment">//在初始语句中给循环控制变量赋初值</span></span><br><span class="line"><span class="keyword">for</span>(sum = <span class="number">0</span>; i &lt;= <span class="number">100</span>; i++) <span class="comment">//初始化语句与循环控制变量无关</span></span><br><span class="line">       sum = sum + i;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">100</span>; i++) <span class="comment">//在初始语句中定义变量并赋初值</span></span><br><span class="line">       sum = sum + i;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>初始语句可以是简单的表达式，也可以是逗号分隔的表达式</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>,j=<span class="number">100</span> ; i&lt;=j ; i++,j++)</span><br><span class="line">       k = i + j;</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">100</span> ; i&lt;=j ; i++,j++)</span><br><span class="line">       k = i + j;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>省略初始化语句和表达式2，只有表达式1，则等同于while语句</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(; i&lt;=<span class="number">100</span> ;)&#123;        <span class="keyword">while</span>(i&lt;=<span class="number">100</span>)&#123;</span><br><span class="line">    sum = sum + i;          sum = sum + i;</span><br><span class="line">    i++;                    i++;</span><br><span class="line">&#125;                       &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>for语句执行顺序</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输出1~6中能整除2的数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="string">"除以2能除尽！ "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：<br><code>2除以2能除尽！
+4除以2能除尽！
+6除以2能除尽！</code></p>
+<p><strong>for执行顺序</strong></p>
+<ol>
+<li><code>i=1</code>  初始化初值</li>
+<li><code>i&lt;=6</code> 进行判断,如果条件为真,则继续执行</li>
+<li>执行循环体代码(就是for循环大括号里的代码)</li>
+<li><code>i++</code> 变量i自增</li>
+<li>回到第2步,一直循环下去,直到第2步为假, 退出循环。</li>
+</ol>
+<h2 id="11-break和continue语句的使用和区别"><a href="#11-break和continue语句的使用和区别" class="headerlink" title="11. break和continue语句的使用和区别"></a>11. break和continue语句的使用和区别</h2><blockquote>
+<p>书上第52页</p>
+</blockquote>
+<h3 id="break语句"><a href="#break语句" class="headerlink" title="break语句"></a>break语句</h3><p>使用在switch和循环中，用于跳出switch语句或结束循环体</p>
+<h3 id="continue语句"><a href="#continue语句" class="headerlink" title="continue语句"></a>continue语句</h3><p>使用在循环体中，跳过<strong>本次</strong>循环，然后执行判断语句，决定是否执行下次循环。</p>
+<h3 id="break和continue语句区别"><a href="#break和continue语句区别" class="headerlink" title="break和continue语句区别"></a>break和continue语句区别</h3><p><strong>break是结束整个循环，continue是跳过本次循环</strong></p>
+<h2 id="12-typedef声明"><a href="#12-typedef声明" class="headerlink" title="12. typedef声明"></a>12. typedef声明</h2><blockquote>
+<p>书上第53页</p>
+</blockquote>
+<ul>
+<li>作用：为一个已有的数据类型另外取个名字</li>
+<li>类型声明语法: <code>typedef 已有类型名 新类型名；</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElemType; <span class="comment">//给int类型取个别名叫ElemType</span></span><br><span class="line">ElemType a; <span class="comment">//相当于int a;</span></span><br></pre></td></tr></table></figure>
+<h2 id="13-枚举类型enum"><a href="#13-枚举类型enum" class="headerlink" title="13. 枚举类型enum"></a>13. 枚举类型enum</h2><ul>
+<li>声明形式：<code>enum 枚举类型名 {变量值列表};</code></li>
+</ul>
+<h4 id="枚举类型说明"><a href="#枚举类型说明" class="headerlink" title="枚举类型说明"></a>枚举类型说明</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Weekday &#123;SUN, MON, TUE, WED, THU, FRI, SAT&#125;；</span><br></pre></td></tr></table></figure>
+<ol>
+<li>对枚举元素按<strong>常量</strong>处理，不能对它们赋值。 <code>SUN=0; //错误</code></li>
+<li>枚举元素有默认值。依次为：0,1,2…上面代码中：<code>SUN的值为0， MON值为1，...SAT为6</code></li>
+<li>可以在声明时另行定义枚举元素的值。<code>enum Weekday {SUN=7, MON=1, TUE, WED, THU, FRI, SAT}；</code> MON为1，后面的顺序加1，SAT为6。</li>
+</ol>
+<h4 id="枚举型与整型的转换"><a href="#枚举型与整型的转换" class="headerlink" title="枚举型与整型的转换"></a>枚举型与整型的转换</h4><ul>
+<li>int型不能隐式转换为枚举型</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Weekday &#123;SUN, MON, TUE, WED, THU, FRI, SAT&#125; test；</span><br><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">test = a; <span class="comment">//错误！！int型不能隐式转换为枚举型</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>枚举型可以隐式的转换为int型</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Weekday &#123;SUN, MON, TUE, WED, THU, FRI, SAT&#125; test;</span><br><span class="line">test = MON;</span><br><span class="line"><span class="keyword">int</span> a = test; <span class="comment">//正确，枚举型可以隐式的转换为int型</span></span><br></pre></td></tr></table></figure>
+<pre align="center">
+                                            __
+  _________  ____ ___  ___     ____  ____  / /
+ / ___/ __ \/ __ `__ \/ _ \   / __ \/ __ \/ / 
+/ /__/ /_/ / / / / / /  __/  / /_/ / / / /_/  
+\___/\____/_/ /_/ /_/\___/   \____/_/ /_(_)   
+
+
+</pre>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/09/C++第三章-函数/" rel="prev" title="c++ 第三章 函数">
+                c++ 第三章 函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://tva2.sinaimg.cn/crop.151.16.355.355.180/0064ae3Cjw8eq7y0iti6vj30hs0ckzl1.jpg"
+               alt="ZhangWang" />
+          <p class="site-author-name" itemprop="name">ZhangWang</p>
+           
+              <p class="site-description motion-element" itemprop="description">1311456991@qq.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="/wechat" target="_blank" title="Wechat">
+                  
+                    <i class="fa fa-fw fa-wechat"></i>
+                  
+                  Wechat
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="douban">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  douban
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-关键字"><span class="nav-number">1.</span> <span class="nav-text">1. 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-标识符：记住标识符的四条构成规则"><span class="nav-number">2.</span> <span class="nav-text">2. 标识符：记住标识符的四条构成规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-认识基本数据类型"><span class="nav-number">3.</span> <span class="nav-text">3. 认识基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-变量的声明和定义"><span class="nav-number">4.</span> <span class="nav-text">4. 变量的声明和定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明"><span class="nav-number">4.1.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">4.2.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-符号常量"><span class="nav-number">5.</span> <span class="nav-text">5. 符号常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-逻辑运算符：-非-，-amp-amp-与-，-或-的使用"><span class="nav-number">6.</span> <span class="nav-text">6. 逻辑运算符：!(非)， &amp;&amp;(与)， ||(或) 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-三元运算符（？）的使用"><span class="nav-number">7.</span> <span class="nav-text">7. 三元运算符（？）的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-cin和cout的使用"><span class="nav-number">8.</span> <span class="nav-text">8. cin和cout的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-学习if和switch的使用"><span class="nav-number">9.</span> <span class="nav-text">9. 学习if和switch的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if的使用"><span class="nav-number">9.1.</span> <span class="nav-text">if的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch的使用"><span class="nav-number">9.2.</span> <span class="nav-text">switch的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#switch使用注意事项"><span class="nav-number">9.2.1.</span> <span class="nav-text">switch使用注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-while循环，do…while循环，-for循环的使用"><span class="nav-number">10.</span> <span class="nav-text">10. while循环，do…while循环， for循环的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环和do…while循环"><span class="nav-number">10.1.</span> <span class="nav-text">while循环和do…while循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环"><span class="nav-number">10.2.</span> <span class="nav-text">for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#for语句注意事项"><span class="nav-number">10.2.1.</span> <span class="nav-text">for语句注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-break和continue语句的使用和区别"><span class="nav-number">11.</span> <span class="nav-text">11. break和continue语句的使用和区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#break语句"><span class="nav-number">11.1.</span> <span class="nav-text">break语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#continue语句"><span class="nav-number">11.2.</span> <span class="nav-text">continue语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break和continue语句区别"><span class="nav-number">11.3.</span> <span class="nav-text">break和continue语句区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-typedef声明"><span class="nav-number">12.</span> <span class="nav-text">12. typedef声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-枚举类型enum"><span class="nav-number">13.</span> <span class="nav-text">13. 枚举类型enum</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#枚举类型说明"><span class="nav-number">13.0.1.</span> <span class="nav-text">枚举类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#枚举型与整型的转换"><span class="nav-number">13.0.2.</span> <span class="nav-text">枚举型与整型的转换</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

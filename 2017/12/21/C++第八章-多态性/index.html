@@ -1,0 +1,820 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1:多态性对于同一个问题，不同的人有不同的回答。 2.运算符重载 运算符重载是对已有的运算符赋予多重含义，使同一个运算符作用于不同类型的数据时导致不同的行为。（运算符重载实质就是函数重载）">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++第八章 多态性">
+<meta property="og:url" content="http://yoursite.com/2017/12/21/C++第八章-多态性/index.html">
+<meta property="og:site_name" content="ZhangWang&#39;s Blog">
+<meta property="og:description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1:多态性对于同一个问题，不同的人有不同的回答。 2.运算符重载 运算符重载是对已有的运算符赋予多重含义，使同一个运算符作用于不同类型的数据时导致不同的行为。（运算符重载实质就是函数重载）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/0064ae3Cgy1fmoedvzjhgj30m80deacg.jpg">
+<meta property="og:updated_time" content="2017-12-21T07:00:53.466Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++第八章 多态性">
+<meta name="twitter:description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1:多态性对于同一个问题，不同的人有不同的回答。 2.运算符重载 运算符重载是对已有的运算符赋予多重含义，使同一个运算符作用于不同类型的数据时导致不同的行为。（运算符重载实质就是函数重载）">
+<meta name="twitter:image" content="https://wx3.sinaimg.cn/mw1024/0064ae3Cgy1fmoedvzjhgj30m80deacg.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/21/C++第八章-多态性/"/>
+
+
+
+
+
+  <title>C++第八章 多态性 | ZhangWang's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">黎明前必须经历黑暗！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/21/C++第八章-多态性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.151.16.355.355.180/0064ae3Cjw8eq7y0iti6vj30hs0ckzl1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++第八章 多态性</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-21T09:32:32+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://wx3.sinaimg.cn/mw1024/0064ae3Cgy1fmoedvzjhgj30m80deacg.jpg" alt=""></p>
+<blockquote>
+<p>本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7</p>
+</blockquote>
+<h2 id="1-多态性"><a href="#1-多态性" class="headerlink" title="1:多态性"></a>1:多态性</h2><p>对于同一个问题，不同的人有不同的回答。</p>
+<h2 id="2-运算符重载"><a href="#2-运算符重载" class="headerlink" title="2.运算符重载"></a>2.运算符重载</h2><blockquote>
+<p>运算符重载是对已有的运算符赋予多重含义，使同一个运算符作用于不同类型的数据时导致不同的行为。（运算符重载实质就是函数重载）</p>
+</blockquote>
+<a id="more"></a>
+<p>运算符的重载有两种：重载为类的非静态成员函数和重载为非成员函数。<br>注意：当以非成员函数形式重载运算符时，有时需要访问运算符所需要的参数和类型，这时可以把该函数声明为类的友元函数。</p>
+<p>重载规则：<br>1.运算符除<code>.</code>,<code>.*</code>,<code>::</code>,<code>?:</code>外，都可以重载，而且只能重载已经有的运算符。<br>2.重载之后的优先级和结合性不会改变。</p>
+<p>语法形式：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回类型 <span class="keyword">operator</span> 运算符(形参表)</span><br><span class="line">&#123;</span><br><span class="line">    函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>双目运算符B,oprd1为A类的对象：<br>oprd1 B oprd2<br>重载为成员函数：<code>oprd1.operator B(oprd2)</code><br>重载为非成员函数:<code>operator B(oprd1, oprd2)</code></p>
+<p>++oprd1<br>重载为成员函数：<code>oprd1.operator++()</code><br>重载为非成员函数:<code>operator++(oprd1)</code></p>
+<p>oprd1++<br>重载为成员函数：<code>oprd1.operator++(0)</code><br>重载为非成员函数:<code>operator++(oprd1, 0)</code></p>
+<p>注意：要重载后置++和–，函数要带一个整型(int)形参,但这个形参在运算中不起任何作用，只是用于区别后置++、–和前置++、–。</p>
+<p>以成员函数形式重载：<code>5.0+c1</code>错误，第一个操作数要是对象<br>以非成员函数形式重载：<code>5.0+c1</code>正确，因为Complex的构造函数使得实数可以被隐含转换为Complex类型，<code>operator+(Complex(5.0),c1)</code></p>
+<p>重载字符串操作符：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyString</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	MyString();  <span class="comment">//构造函数声明</span></span><br><span class="line">	MyString(<span class="keyword">const</span> <span class="keyword">char</span> *s);<span class="comment">//构造函数声明</span></span><br><span class="line">	MyString(<span class="keyword">const</span> MyString &amp;rhs);<span class="comment">//构造函数声明</span></span><br><span class="line"></span><br><span class="line">	MyString <span class="keyword">operator</span>+(<span class="keyword">const</span> MyString rhs);<span class="comment">//重载+操作符方法声明</span></span><br><span class="line">	<span class="keyword">void</span> <span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="keyword">char</span> * newStr);<span class="comment">//重载=操作符方法声明</span></span><br><span class="line">	<span class="keyword">char</span> <span class="keyword">operator</span>[](<span class="keyword">int</span> index);<span class="comment">//重载[]操作符方法声明</span></span><br><span class="line">	MyString &amp; <span class="keyword">operator</span>+=(<span class="keyword">const</span> <span class="keyword">char</span> * ostr);<span class="comment">//重载+=操作符方法声明</span></span><br><span class="line"></span><br><span class="line">	~MyString()&#123;<span class="keyword">delete</span> [] str;&#125;;<span class="comment">//虚构函数</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">getStrLength</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span></span>;<span class="comment">//求函数的长度</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Show</span><span class="params">()</span></span>;<span class="comment">//显示</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">char</span> * str;<span class="comment">//用于指向字符串（也就是是字符数组的首地址）</span></span><br><span class="line">	<span class="keyword">int</span> size;<span class="comment">//表示该字符串的长度</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//重载+操作符方法实现</span></span><br><span class="line">MyString MyString::<span class="keyword">operator</span>+(<span class="keyword">const</span> MyString rhs)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> newSize = size + getStrLength(rhs.str) - <span class="number">1</span>;<span class="comment">//计算出新数组的长度，减一是因为，多计算了一次结束符'\0'</span></span><br><span class="line">	<span class="keyword">char</span> *newStr = <span class="keyword">new</span> <span class="keyword">char</span>[newSize];<span class="comment">//创建newSize数组，长度为newSize</span></span><br><span class="line">	<span class="keyword">int</span> i;<span class="comment">//初始话循环变量，用来标识新数组存放到哪里了</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; size<span class="number">-1</span>; i++)<span class="comment">//i&lt;size-1是因为要去除结尾'\0'</span></span><br><span class="line">	&#123;</span><br><span class="line">		newStr[i] = <span class="keyword">this</span>-&gt;str[i];<span class="comment">//将当前对象的字符数组中的值放到新数组中(注意这里还不放'\0')</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; rhs.size; j++)<span class="comment">//j&lt;rhs.size是因为要放结尾'\0'</span></span><br><span class="line">	&#123;</span><br><span class="line">		newStr[i] = rhs.str[j];<span class="comment">//将rhs对象的字符数组中的值放到新数组中包含'\0'(结束符)</span></span><br><span class="line">		i++;<span class="comment">//放完后新字符数组下标自增1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">MyString <span class="title">newMyStr</span><span class="params">(newStr)</span></span>;<span class="comment">//通过新的数组调用MyString构造函数，创建新的对象newMyStr</span></span><br><span class="line">	<span class="keyword">delete</span> [] newStr;<span class="comment">//newStr指针指向的数组为new方式创建，使用完后要delete释放</span></span><br><span class="line">	<span class="keyword">return</span> newMyStr;<span class="comment">//返回新的对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//重载=操作符方法实现</span></span><br><span class="line"><span class="keyword">void</span> MyString::<span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="keyword">char</span> * newStr)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> newSize = getStrLength(newStr);<span class="comment">//获取newStr的长度</span></span><br><span class="line">	str = <span class="keyword">new</span> <span class="keyword">char</span>[newSize];<span class="comment">//getStrLength方法为计算字符串长度的方法</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; newSize; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		str[i] = newStr[i];<span class="comment">//将newStr赋值给当前对象的str数组</span></span><br><span class="line">	&#125;</span><br><span class="line">	size = newSize;<span class="comment">//newSize赋值给当前对象的size</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//重载[]操作符方法实现</span></span><br><span class="line"><span class="keyword">char</span> MyString::<span class="keyword">operator</span>[](<span class="keyword">int</span> index)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> str[index];<span class="comment">//返回字符数组中下标为index的字符</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//重载+=操作符方法实现</span></span><br><span class="line">MyString &amp; MyString::<span class="keyword">operator</span>+=(<span class="keyword">const</span> <span class="keyword">char</span> * ostr)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> ostrLength = getStrLength(ostr);<span class="comment">//计算ostr的长度</span></span><br><span class="line">	<span class="keyword">int</span> newSize = size + ostrLength - <span class="number">1</span>;<span class="comment">//计算出新数组的长度，减一是因为，多计算了一次结束符'\0'</span></span><br><span class="line">	<span class="keyword">char</span> *newStr = <span class="keyword">new</span> <span class="keyword">char</span>[newSize];<span class="comment">//创建newSize数组，长度为newSize</span></span><br><span class="line">	<span class="keyword">int</span> i;<span class="comment">//初始话循环变量，用来标识新数组存放到哪里了</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; size<span class="number">-1</span>; i++)<span class="comment">//i&lt;size-1是因为要去除结尾'\0'</span></span><br><span class="line">	&#123;</span><br><span class="line">		newStr[i] = <span class="keyword">this</span>-&gt;str[i];<span class="comment">//将当前对象的字符数组中的值放到新数组中(注意这里还不放'\0')</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; ostrLength; j++)<span class="comment">//j&lt;ostrLength是因为要放结尾'\0'</span></span><br><span class="line">	&#123;</span><br><span class="line">		newStr[i] = ostr[j];<span class="comment">//将ostr中的值放到新数组中包含'\0'(结束符)</span></span><br><span class="line">		i++;<span class="comment">//放完后新字符数组下标自增1</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">this</span>-&gt;str = newStr;<span class="comment">//新数组newStr指针赋值给当前对象的str指针指向</span></span><br><span class="line">	<span class="keyword">this</span>-&gt;size = newSize;<span class="comment">//newSize赋值给当前对象的size</span></span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;<span class="comment">//返回当前对象的引用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//计算字符数组（字符串）的长度，包含结束符</span></span><br><span class="line"><span class="keyword">int</span> MyString::getStrLength(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(*str != <span class="string">'\0'</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		size++;</span><br><span class="line">		str++;</span><br><span class="line">	&#125;</span><br><span class="line">	size++;<span class="comment">//加上末尾的结束符'\0'</span></span><br><span class="line">	<span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实现MyString的构造方法</span></span><br><span class="line">MyString::MyString()</span><br><span class="line">&#123;</span><br><span class="line">	size = <span class="number">1</span>;</span><br><span class="line">	str = <span class="keyword">new</span> <span class="keyword">char</span>[size];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实现MyString的构造方法</span></span><br><span class="line">MyString::MyString(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span><br><span class="line">&#123;</span><br><span class="line">	size = getStrLength(s);</span><br><span class="line">	str = <span class="keyword">new</span> <span class="keyword">char</span>[size];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		str[i] = s[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实现MyString的构造方法</span></span><br><span class="line">MyString::MyString(<span class="keyword">const</span> MyString &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	size = rhs.size;</span><br><span class="line">	str = <span class="keyword">new</span> <span class="keyword">char</span>[size];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		str[i] = rhs.str[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印字符数组（字符串）</span></span><br><span class="line"><span class="keyword">void</span> MyString::Show()&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size<span class="number">-1</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;str[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">MyString <span class="title">str1</span><span class="params">(<span class="string">"hello"</span>)</span></span>;</span><br><span class="line">	<span class="function">MyString <span class="title">str2</span><span class="params">(<span class="string">"world"</span>)</span></span>;</span><br><span class="line">	<span class="function">MyString <span class="title">str3</span><span class="params">(str1 + str2)</span></span>;<span class="comment">//测试重载+运算符</span></span><br><span class="line">	str3.Show();</span><br><span class="line"></span><br><span class="line">	MyString str4 = <span class="string">"serendipity"</span>;<span class="comment">//测试重载=运算符</span></span><br><span class="line">	str4.Show();</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;str4[<span class="number">5</span>]&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//测试重载的[]运算符</span></span><br><span class="line"></span><br><span class="line">	MyString str5 = <span class="string">"zw"</span>;</span><br><span class="line">	str5 += <span class="string">"HaHa"</span>;<span class="comment">//测试重载的+=运算符</span></span><br><span class="line">	str5.Show();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-虚函数成员"><a href="#3-虚函数成员" class="headerlink" title="3.虚函数成员"></a>3.虚函数成员</h2><p>虚函数必须是非静态的成员函数。<br>虚函数成员的声明：<br><code>virtual 函数类型 函数名(形参表);</code></p>
+<p>虚函数声明只能出现在类定义中的函数原型声明中，而不能在成员函数实现的时候。</p>
+<h2 id="4-虚析构函数"><a href="#4-虚析构函数" class="headerlink" title="4:虚析构函数"></a>4:虚析构函数</h2><p>c++中不能声明虚构造函数，但是可以声明虚析构函数。<br>虚析构函数声明：<br><code>virtual ~类名();</code></p>
+<p>如果一个类的析构函数时虚函数，那么由它派生而来的所有子类的析构函数也是虚函数。析构函数设置为虚函数之后，在使用指针引用时可以动态绑定，实现运行时的多态，保证使用基类类型的指针就能够调用适当的析构函数针对不同的对象进行清理工作。</p>
+<h2 id="5-纯虚函数与抽象类"><a href="#5-纯虚函数与抽象类" class="headerlink" title="5.纯虚函数与抽象类"></a>5.纯虚函数与抽象类</h2><h3 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a>纯虚函数</h3><p>纯虚函数是一个在基类中声明的虚函数，它在该基类中没有定义具体的操作内容，要求各派生类根据实际需要给出各自的定义。</p>
+<p>声明格式：<code>virtual 函数类型 函数名 (参数表) = 0;</code><br>注意：基类中任然允许对纯虚函数给出实现，但即使给出实现，也必须由派生类覆盖，否则无法实例化。</p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>抽象类是带有纯虚函数的类。</p>
+<p>抽象类派生出新的类之后，如果派生类给出所有纯虚函数的函数实现，这个派生就可以定义自己的对象，因而不再是抽象类；反之，如果派生类没有给出全部纯虚函数的实现，这时的派生类仍然是一个抽象类。</p>
+<p><strong>抽象类不能实例化</strong>，即不能定义一个抽象类的对象，但是可以定义一个抽象类的指针和引用。通过指针或引用，就可以指向并访问派生类的对象。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span>//抽象类</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">tiji</span><span class="params">()</span> </span>= <span class="number">0</span>;<span class="comment">//计算体积(纯虚函数)</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">printMsg</span><span class="params">()</span> </span>= <span class="number">0</span>;<span class="comment">//打印信息(纯虚函数)</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cube</span>:</span><span class="keyword">public</span> Shape<span class="comment">//Cube（正方体类）以public方式继承Shape类</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Cube(<span class="keyword">int</span> bc, <span class="keyword">int</span> tj = <span class="number">0</span>):a(bc),cubeTj(tj)&#123;&#125;;<span class="comment">//构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">tiji</span><span class="params">()</span></span>;<span class="comment">//计算体积，覆盖基类的虚函数（函数声明）</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printMsg</span><span class="params">()</span></span>;<span class="comment">//打印体积信息，覆盖基类的虚函数（函数声明）</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> a;<span class="comment">//边长</span></span><br><span class="line">	<span class="keyword">int</span> cubeTj;<span class="comment">//体积</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cylinder</span>:</span><span class="keyword">public</span> Shape<span class="comment">//Cylinder（圆柱体类）以public方式继承Shape类</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Cylinder(<span class="keyword">int</span> bj, <span class="keyword">int</span> g, <span class="keyword">double</span> tj = <span class="number">0.0</span>):r(bj),height(g),cylinderTj(tj)&#123;&#125;;<span class="comment">//构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">tiji</span><span class="params">()</span></span>;<span class="comment">//计算体积，覆盖基类的虚函数（函数声明）</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printMsg</span><span class="params">()</span></span>;<span class="comment">//打印体积信息，覆盖基类的虚函数（函数声明）</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> r;<span class="comment">//半径</span></span><br><span class="line">	<span class="keyword">int</span> height;<span class="comment">//高</span></span><br><span class="line">	<span class="keyword">double</span> cylinderTj;<span class="comment">//圆柱体的体积</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//正方体的体积计算</span></span><br><span class="line"><span class="keyword">void</span> Cube::tiji()&#123;</span><br><span class="line">	cubeTj = a*a*a;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"当前正方体体积为："</span>&lt;&lt;cubeTj&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印正方体的体积信息</span></span><br><span class="line"><span class="keyword">void</span> Cube::printMsg()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"正方体体积为："</span>&lt;&lt;cubeTj&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//圆柱体的体积计算</span></span><br><span class="line"><span class="keyword">void</span> Cylinder::tiji()&#123;</span><br><span class="line">	cylinderTj = <span class="number">3.14</span>*r*r*height;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"当前圆柱体的体积为："</span>&lt;&lt;cylinderTj&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印圆柱体的体积</span></span><br><span class="line"><span class="keyword">void</span> Cylinder::printMsg()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"圆柱体的体积为："</span>&lt;&lt;cylinderTj&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"请选择模式：1表示创建正方体，2表示创建圆柱体，3表示输出所有已创建的图形的体积，4表示结束程序："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> flag;               <span class="comment">//用于存储用户选择的模式</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;Shape *&gt; arr;    <span class="comment">//用vector定义动态数组</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;flag;          <span class="comment">//接收用户的输入赋值给flag</span></span><br><span class="line">		Shape *sh;          <span class="comment">//创建一个基类（Shape）的指针，名字叫sh</span></span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="number">1</span>)&#123;      <span class="comment">//如果输入1表示要创建的是正方体</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">"请输入边长："</span>&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//提示输入边长</span></span><br><span class="line">			<span class="keyword">int</span> a;          <span class="comment">//定义一个变量接收用户输入的边长</span></span><br><span class="line">			<span class="built_in">cin</span>&gt;&gt;a;         <span class="comment">//接收边长</span></span><br><span class="line">			sh = <span class="keyword">new</span> Cube(a);<span class="comment">//以new方式创建一个正方体对象，并将这个对象的地址赋值给sh</span></span><br><span class="line">			(*sh).tiji();   <span class="comment">//调用tiji方法</span></span><br><span class="line">			arr.push_back(sh);<span class="comment">//将sh这个地址放到数组里保存起来</span></span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(flag == <span class="number">2</span>)&#123;<span class="comment">//如果输入2表示要创建的是圆柱体</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">"请输入半径和高："</span>&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//提示输入半径和高</span></span><br><span class="line">			<span class="keyword">int</span> r, h;       <span class="comment">//用于接收半径和高</span></span><br><span class="line">			<span class="built_in">cin</span>&gt;&gt;r&gt;&gt;h;      <span class="comment">//接收半径和高</span></span><br><span class="line">			sh = <span class="keyword">new</span> Cylinder(r, h);<span class="comment">//new方式创建一个圆柱体</span></span><br><span class="line">			(*sh).tiji();   <span class="comment">//调用tiji方法</span></span><br><span class="line">			arr.push_back(sh);<span class="comment">//将sh这个地址放到arr数组中</span></span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(flag == <span class="number">3</span>)&#123;<span class="comment">//如果输入的是3,表示输出所有已创建的图形的体积</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.size(); i++)&#123;<span class="comment">//遍历整个数组，打印各个创建过的图形的体积</span></span><br><span class="line">				(*arr[i]).printMsg(); <span class="comment">//arr[i]：是指针（也就是地址）， (*arr[i])：是arr[i]这个地址指向的东西（在这里是对象）</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(flag == <span class="number">4</span>)&#123;<span class="comment">//如果输入的是4，表示要结束这个程序</span></span><br><span class="line">			<span class="keyword">break</span>;          <span class="comment">//跳出循环</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/20/C++第七章 继承与派生/" rel="next" title="C++ 第七章 继承与派生">
+                <i class="fa fa-chevron-left"></i> C++ 第七章 继承与派生
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://tva2.sinaimg.cn/crop.151.16.355.355.180/0064ae3Cjw8eq7y0iti6vj30hs0ckzl1.jpg"
+               alt="ZhangWang" />
+          <p class="site-author-name" itemprop="name">ZhangWang</p>
+           
+              <p class="site-description motion-element" itemprop="description">1311456991@qq.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="/wechat" target="_blank" title="Wechat">
+                  
+                    <i class="fa fa-fw fa-wechat"></i>
+                  
+                  Wechat
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="douban">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  douban
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多态性"><span class="nav-number">1.</span> <span class="nav-text">1:多态性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-运算符重载"><span class="nav-number">2.</span> <span class="nav-text">2.运算符重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-虚函数成员"><span class="nav-number">3.</span> <span class="nav-text">3.虚函数成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-虚析构函数"><span class="nav-number">4.</span> <span class="nav-text">4:虚析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-纯虚函数与抽象类"><span class="nav-number">5.</span> <span class="nav-text">5.纯虚函数与抽象类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#纯虚函数"><span class="nav-number">5.1.</span> <span class="nav-text">纯虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象类"><span class="nav-number">5.2.</span> <span class="nav-text">抽象类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

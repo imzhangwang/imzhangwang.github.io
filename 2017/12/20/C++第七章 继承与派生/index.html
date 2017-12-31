@@ -1,0 +1,834 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1.类的继承 类的继承，是新的类从已有类那里得到已有的特性  派生类（子类）定义语法：1234class 派生类名:继承方式 基类名1,...继承方式 基类名n&amp;#123;    派生类成员声明；&amp;#125;; 1234class Student:public People&amp;#123;">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 第七章 继承与派生">
+<meta property="og:url" content="http://yoursite.com/2017/12/20/C++第七章 继承与派生/index.html">
+<meta property="og:site_name" content="ZhangWang&#39;s Blog">
+<meta property="og:description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1.类的继承 类的继承，是新的类从已有类那里得到已有的特性  派生类（子类）定义语法：1234class 派生类名:继承方式 基类名1,...继承方式 基类名n&amp;#123;    派生类成员声明；&amp;#125;; 1234class Student:public People&amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/0064ae3Cgy1fmnmim09vqj31kw11xb29.jpg">
+<meta property="og:updated_time" content="2017-12-20T14:57:47.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ 第七章 继承与派生">
+<meta name="twitter:description" content="本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7  1.类的继承 类的继承，是新的类从已有类那里得到已有的特性  派生类（子类）定义语法：1234class 派生类名:继承方式 基类名1,...继承方式 基类名n&amp;#123;    派生类成员声明；&amp;#125;; 1234class Student:public People&amp;#123;">
+<meta name="twitter:image" content="https://wx4.sinaimg.cn/mw1024/0064ae3Cgy1fmnmim09vqj31kw11xb29.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/20/C++第七章 继承与派生/"/>
+
+
+
+
+
+  <title>C++ 第七章 继承与派生 | ZhangWang's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">黎明前必须经历黑暗！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/20/C++第七章 继承与派生/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.151.16.355.355.180/0064ae3Cjw8eq7y0iti6vj30hs0ckzl1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ 第七章 继承与派生</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-20T20:44:57+08:00">
+                2017-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://wx4.sinaimg.cn/mw1024/0064ae3Cgy1fmnmim09vqj31kw11xb29.jpg" alt=""></p>
+<blockquote>
+<p>本文内容来源于[1] 郑莉、董渊、何江舟 C++语言程序设计(第4版)．北京：清华大学出版社，2010.7</p>
+</blockquote>
+<h2 id="1-类的继承"><a href="#1-类的继承" class="headerlink" title="1.类的继承"></a>1.类的继承</h2><blockquote>
+<p>类的继承，是新的类从已有类那里得到已有的特性</p>
+</blockquote>
+<p>派生类（子类）定义语法：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 派生类名:</span>继承方式 基类名<span class="number">1</span>,...继承方式 基类名n</span><br><span class="line">&#123;</span><br><span class="line">    派生类成员声明；</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>:</span><span class="keyword">public</span> People</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//something</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>多继承：一个派生类，可以同时有多个基类。<br>单继承：一个派生类只继承了一个基类。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="吸收基类成员"><a href="#吸收基类成员" class="headerlink" title="吸收基类成员"></a>吸收基类成员</h3><p><strong>在派生过程中构造函数和析构函数都不被继承，</strong>其它非静态成员全盘接收。</p>
+<h3 id="改造基类成员"><a href="#改造基类成员" class="headerlink" title="改造基类成员"></a>改造基类成员</h3><p>同名隐藏：<strong>派生类有和基类有一样的方法（方法名和参数列表一样），派生类的改函数就隐藏了基类的同名函数。</strong></p>
+<h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p><code>public</code>方式继承：基类的非私有成员在子类的访问属性都不变。<br><code>protected</code>方式继承：基类的非私有成员都成为子类的保护成员。<br><code>private</code>方式继承：基类的非私有成员都成为子类的私有成员。</p>
+<p>注意：<strong>无论任何一种方式继承，都派生类都不可直接访问基类的私有成员。</strong></p>
+<h2 id="2-类型兼容规则"><a href="#2-类型兼容规则" class="headerlink" title="2.类型兼容规则"></a>2.类型兼容规则</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>&#123;</span>...&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span>:</span><span class="keyword">public</span> B&#123;...&#125;;</span><br><span class="line"></span><br><span class="line">B b1, *pb1;</span><br><span class="line">D d1;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>派生类的对象可以隐含转换为基类对象（派生类对象可以直接赋值给基类对象）<code>b1 = d1;</code></li>
+<li>派生类的对象可以初始化基类对象的引用（派生类对象可以直接赋值基类的引用）<code>B &amp;rb = d1;</code></li>
+<li>派生类对象的地址也可以隐含转换为指向基类的指针（派生类的地址直接赋值给基类对象）<code>pb1 = &amp;d1;</code></li>
+</ol>
+<h2 id="3-派生类的构造函数"><a href="#3-派生类的构造函数" class="headerlink" title="3.派生类的构造函数"></a>3.派生类的构造函数</h2><p>构造派生类的对象时，就要对基类的成员对象和新增成员对象进行初始化。<br>注意：如果对基类初始化时，需要调用基类的带有参数的构造函数时，派生类就必须声明构造函数。<br>派生类构造函数执行的次序：</p>
+<ol>
+<li>调用基类构造函数，调用顺序按照它们被继承时声明的顺序（从左向右）。</li>
+<li>对派生类新增的成员对象初始化，调用顺序按照它们是在类中的声明顺序。</li>
+<li>执行派生类的构造函数体中的内容。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base1</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Base1(<span class="keyword">int</span> i)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base2</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Base2(<span class="keyword">int</span> j)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base3</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Base3()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived</span>:</span><span class="keyword">public</span> Base2, <span class="keyword">public</span> Base1, <span class="keyword">public</span> Base3&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Derived(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c, <span class="keyword">int</span> d):Base1(a),member2(d),member1(c), Base2(b)&#123;&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Base1 member1;</span><br><span class="line">    Base2 member2;</span><br><span class="line">    Base3 member3;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Derived类的构造函数执行顺序：先Base2, 然后Base1，然后Base3，然后member1， 然后member2，然后member3，最后执行Derived构造函数体中的内容。</p>
+<h2 id="4-派生类析构函数"><a href="#4-派生类析构函数" class="headerlink" title="4.派生类析构函数"></a>4.派生类析构函数</h2><p>功能：在该类对象消亡之前进行一些必要的清理工作。<br>执行顺序：与构造函数正好相反。</p>
+<h2 id="5-派生类成员的标识与访问"><a href="#5-派生类成员的标识与访问" class="headerlink" title="5.派生类成员的标识与访问"></a>5.派生类成员的标识与访问</h2><p>用<code>::</code>来限定要访问的成员所在的类：<code>类名::成员名;</code><br>如果派生类中声明了与基类成员函数同名的新函数，即使函数的参数表不同，从基类继承的同名函数的所有重载形式也都会被隐藏。如果要访问被隐藏的成员，就需要使用作用域分辨符和基类名来限定。</p>
+<h2 id="6-虚基类"><a href="#6-虚基类" class="headerlink" title="6.虚基类"></a>6.虚基类</h2><p>继承设置为虚基类，这时从不同的路径继承过来的同名数据成员在内存中就只有一个副本，同一个函数名也只有一个映射。<br>虚基类的声明是在派生类的定义过程中进行的，语法：<br><code>class 派生类名:virtual 继承方式 基类名</code></p>
+<p>注意：虚基类关键字的作用范围只对紧跟其后的基类起作用。</p>
+<h2 id="7-虚基类及其派生类构造函数"><a href="#7-虚基类及其派生类构造函数" class="headerlink" title="7.虚基类及其派生类构造函数"></a>7.虚基类及其派生类构造函数</h2><p>若虚基类声明有非默认形式的（带参数）的构造函数，并没有声明默认形式的构造函数，这时在整个继承关系中，直接或间接继承虚基类的所有派生类，都必须在构造函数的成员初始化表中列出对虚基类的初始化。</p>
+<p>虚基类的成员是由最远派生类的构造函数通过调用虚基类的构造函数进行初始化的。而且，只有最远的派生类的构造函数会调用虚基类的构造函数，该派生类的其它基类对虚基类构造函数的调用都自动被忽略。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/18/C++第六章-数组、指针与字符串/" rel="next" title="C++第六章 数组、指针与字符串">
+                <i class="fa fa-chevron-left"></i> C++第六章 数组、指针与字符串
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/21/C++第八章-多态性/" rel="prev" title="C++第八章 多态性">
+                C++第八章 多态性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://tva2.sinaimg.cn/crop.151.16.355.355.180/0064ae3Cjw8eq7y0iti6vj30hs0ckzl1.jpg"
+               alt="ZhangWang" />
+          <p class="site-author-name" itemprop="name">ZhangWang</p>
+           
+              <p class="site-description motion-element" itemprop="description">1311456991@qq.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="/wechat" target="_blank" title="Wechat">
+                  
+                    <i class="fa fa-fw fa-wechat"></i>
+                  
+                  Wechat
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="douban">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  douban
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-类的继承"><span class="nav-number">1.</span> <span class="nav-text">1.类的继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#吸收基类成员"><span class="nav-number">1.1.</span> <span class="nav-text">吸收基类成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改造基类成员"><span class="nav-number">1.2.</span> <span class="nav-text">改造基类成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问控制"><span class="nav-number">1.3.</span> <span class="nav-text">访问控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-类型兼容规则"><span class="nav-number">2.</span> <span class="nav-text">2.类型兼容规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-派生类的构造函数"><span class="nav-number">3.</span> <span class="nav-text">3.派生类的构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-派生类析构函数"><span class="nav-number">4.</span> <span class="nav-text">4.派生类析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-派生类成员的标识与访问"><span class="nav-number">5.</span> <span class="nav-text">5.派生类成员的标识与访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-虚基类"><span class="nav-number">6.</span> <span class="nav-text">6.虚基类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-虚基类及其派生类构造函数"><span class="nav-number">7.</span> <span class="nav-text">7.虚基类及其派生类构造函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
